@@ -1,495 +1,968 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>LootNova Official Giveaway - Gaming & AI Pro Rewards</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800;900&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Official Reward Center | Claim Your Digital Rewards</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@600;700&display=swap');
+
         :root {
-            --neon-cyan: #00f2fe;
-            --neon-purple: #a855f7;
-            --neon-green: #10b981;
-            --bg-dark: #060714;
-            --card-bg: rgba(15, 18, 42, 0.90);
+            --bg-dark: #07090e;
+            --glass-bg: rgba(255, 255, 255, 0.04);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --accent-cyan: #00f2fe;
+            --accent-pink: #ff007f;
+            --accent-green: #10b981;
+            --accent-amber: #fbbf24;
         }
 
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
             font-family: 'Plus Jakarta Sans', sans-serif;
-            -webkit-tap-highlight-color: transparent;
         }
 
         body {
             background-color: var(--bg-dark);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(0, 242, 254, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(255, 0, 127, 0.15) 0px, transparent 50%),
+                radial-gradient(at 50% 100%, rgba(79, 172, 254, 0.12) 0px, transparent 50%);
             color: #ffffff;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 15px 12px;
-            background-image: 
-                radial-gradient(circle at 20% 10%, rgba(0, 242, 254, 0.18) 0%, transparent 45%),
-                radial-gradient(circle at 80% 90%, rgba(168, 85, 247, 0.22) 0%, transparent 50%);
+            padding: 2rem 1rem 5.5rem;
             overflow-x: hidden;
         }
 
-        .live-ticker {
-            width: 100%;
-            max-width: 460px;
-            background: rgba(16, 185, 129, 0.12);
-            border: 1px solid rgba(16, 185, 129, 0.35);
-            border-radius: 50px;
-            padding: 8px 14px;
-            margin-bottom: 12px;
-            display: flex;
+        .bg-grid {
+            position: fixed;
+            inset: 0;
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .status-pill {
+            display: inline-flex;
             align-items: center;
             gap: 8px;
-            font-size: 12px;
+            background: rgba(16, 185, 129, 0.12);
+            border: 1px solid rgba(16, 185, 129, 0.35);
+            color: #34d399;
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 0.85rem;
             font-weight: 700;
-            color: #a7f3d0;
+            margin-bottom: 1.2rem;
             box-shadow: 0 0 20px rgba(16, 185, 129, 0.15);
         }
 
-        .live-dot {
+        .pulse-dot {
             width: 8px;
             height: 8px;
             background: #10b981;
             border-radius: 50%;
-            box-shadow: 0 0 8px #10b981;
-            flex-shrink: 0;
-            animation: blink 1.2s infinite;
+            animation: pulseDot 1.5s infinite;
         }
 
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
+        @keyframes pulseDot {
+            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+            70% { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
         }
 
-        .main-card {
-            width: 100%;
-            max-width: 460px;
-            background: var(--card-bg);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(0, 242, 254, 0.25);
-            border-radius: 26px;
-            padding: 20px 16px;
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85), 0 0 35px rgba(168, 85, 247, 0.15);
+        header {
             text-align: center;
+            max-width: 720px;
+            margin-bottom: 2rem;
+            animation: fadeInDown 0.8s ease;
         }
 
-        .brand-badge {
-            display: inline-block;
-            background: linear-gradient(90deg, rgba(0,242,254,0.2), rgba(168,85,247,0.2));
-            border: 1px solid rgba(0,242,254,0.4);
-            color: var(--neon-cyan);
-            padding: 5px 14px;
-            border-radius: 50px;
-            font-size: 11px;
+        header h1 {
+            font-size: clamp(2rem, 5vw, 3.2rem);
             font-weight: 800;
-            letter-spacing: 0.8px;
-            text-transform: uppercase;
-            margin-bottom: 8px;
-        }
-
-        h1 {
-            font-size: 23px;
-            font-weight: 900;
-            background: linear-gradient(90deg, #ffffff, #00f2fe, #c084fc);
+            line-height: 1.15;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, #ffffff 30%, #38bdf8 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 5px;
         }
 
-        .subtitle {
-            font-size: 12px;
+        header p {
+            font-size: 1.05rem;
             color: #94a3b8;
-            margin-bottom: 14px;
+            line-height: 1.6;
         }
 
-        .stock-box {
-            background: rgba(239, 68, 68, 0.12);
-            border: 1px solid rgba(239, 68, 68, 0.4);
-            border-radius: 14px;
-            padding: 9px 14px;
-            margin-bottom: 16px;
-            display: flex;
-            justify-content: space-between;
+        .urgency-bar {
+            margin-top: 16px;
+            display: inline-flex;
             align-items: center;
+            gap: 6px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            padding: 8px 18px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            color: #e2e8f0;
         }
 
-        .stock-text {
-            font-size: 12px;
-            font-weight: 700;
-            color: #fca5a5;
-        }
-
-        .stock-count {
-            background: #ef4444;
-            color: #fff;
-            padding: 4px 10px;
-            border-radius: 8px;
-            font-size: 12px;
-            font-weight: 900;
-        }
-
-        .step-label {
-            text-align: left;
-            font-size: 11px;
+        .urgency-bar span {
+            color: var(--accent-amber);
             font-weight: 800;
-            color: var(--neon-cyan);
-            margin-bottom: 8px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+            font-variant-numeric: tabular-nums;
         }
 
-        .rewards-grid {
+        /* ----- LIVE PROOF VIDEO SECTION ----- */
+        .video-proof-container {
+            width: 100%;
+            max-width: 320px; /* حجم مناسب لفيديو الشورتس */
+            margin: 0 auto 2.8rem auto;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 0.8rem;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            position: relative;
+            animation: fadeInDown 1s ease;
+        }
+
+        .video-proof-container::before {
+            content: '🔴 LIVE PROOF';
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #ef4444;
+            color: white;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 800;
+            z-index: 10;
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+            letter-spacing: 1px;
+        }
+
+        .video-proof-container video {
+            width: 100%;
+            border-radius: 16px;
+            display: block;
+            object-fit: cover;
+            aspect-ratio: 9/16;
+            background: #000;
+        }
+        /* ------------------------------------ */
+
+        .grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 9px;
-            margin-bottom: 16px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.8rem;
+            width: 100%;
+            max-width: 1180px;
         }
 
         .reward-card {
-            background: rgba(255, 255, 255, 0.04);
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            padding: 11px 8px;
-            cursor: pointer;
-            transition: all 0.2s ease;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
             position: relative;
+            overflow: hidden;
         }
 
-        .reward-card.selected {
-            background: rgba(0, 242, 254, 0.14);
-            border-color: var(--neon-cyan);
-            box-shadow: 0 0 18px rgba(0, 242, 254, 0.28);
-            transform: translateY(-2px);
+        .reward-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(255, 255, 255, 0.28);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
         }
 
-        .hot-tag {
-            position: absolute;
-            top: -7px;
-            right: 8px;
-            background: linear-gradient(90deg, #ec4899, #8b5cf6);
-            color: #fff;
-            font-size: 9px;
-            font-weight: 900;
-            padding: 2px 7px;
-            border-radius: 20px;
-            text-transform: uppercase;
-        }
-
-        .reward-icon {
-            font-size: 24px;
-            margin-bottom: 4px;
-            display: block;
-        }
-
-        .reward-title {
-            font-size: 13px;
-            font-weight: 800;
-            color: #fff;
-            display: block;
-        }
-
-        .reward-sub {
-            font-size: 10px;
-            color: #94a3b8;
-        }
-
-        .input-group {
-            margin-bottom: 16px;
-            text-align: left;
-        }
-
-        .username-input {
+        .giftcard-visual {
             width: 100%;
-            background: rgba(6, 7, 20, 0.9);
-            border: 2px solid rgba(255, 255, 255, 0.15);
-            border-radius: 14px;
-            padding: 14px 16px;
-            color: #fff;
-            font-size: 14px;
-            font-weight: 700;
-            outline: none;
-            transition: border-color 0.2s;
+            height: 175px;
+            border-radius: 16px;
+            padding: 1.3rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 1.4rem;
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.35);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        .username-input:focus {
-            border-color: var(--neon-cyan);
+        .giftcard-visual::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -60%;
+            width: 40%;
+            height: 200%;
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.22) 50%, rgba(255,255,255,0) 100%);
+            transform: rotate(30deg);
+            animation: cardShine 5s infinite;
+            pointer-events: none;
+        }
+
+        @keyframes cardShine {
+            0% { left: -60%; }
+            25% { left: 130%; }
+            100% { left: 130%; }
+        }
+
+        /* Uses your local images with rich fallback gradients underneath */
+        .visual-roblox {
+            background: 
+                linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.82)),
+                url('images (29).jpg') center/cover no-repeat,
+                linear-gradient(135deg, #1e293b 0%, #0f172a 55%, #450a0a 100%);
+        }
+        .visual-freefire {
+            background: 
+                linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.82)),
+                url('images (31).jpg') center/cover no-repeat,
+                linear-gradient(135deg, #1e1b4b 0%, #0f172a 50%, #78350f 100%);
+        }
+        .visual-canva {
+            background: 
+                linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.82)),
+                url('images (30).jpg') center/cover no-repeat,
+                linear-gradient(135deg, #06b6d4 0%, #3b82f6 50%, #7c3aed 100%);
+        }
+
+        .gc-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 2;
+        }
+
+        .gc-logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 800;
+            font-size: 1.4rem;
+            letter-spacing: 0.5px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+        }
+
+        .gc-value {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(8px);
+            padding: 6px 14px;
+            border-radius: 10px;
+            font-weight: 800;
+            font-size: 1.25rem;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+        }
+
+        .gc-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            z-index: 2;
+        }
+
+        .gc-chip {
+            width: 38px;
+            height: 28px;
+            border-radius: 6px;
+            background: linear-gradient(135deg, #fcd34d, #d97706);
+            opacity: 0.92;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+        }
+
+        .gc-code-preview {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: #fff;
+            letter-spacing: 1.5px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+        }
+
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            font-size: 0.8rem;
+            color: #38bdf8;
+            font-weight: 700;
+        }
+
+        .reward-card h2 {
+            font-size: 1.4rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+
+        .reward-card p {
+            font-size: 0.92rem;
+            color: #94a3b8;
+            line-height: 1.55;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
         }
 
         .claim-btn {
             width: 100%;
-            background: linear-gradient(135deg, #00f2fe 0%, #7c3aed 100%);
-            color: #fff;
             border: none;
-            padding: 16px;
-            border-radius: 14px;
-            font-size: 15px;
-            font-weight: 900;
+            outline: none;
             cursor: pointer;
-            box-shadow: 0 10px 25px rgba(124, 58, 237, 0.45);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        #process-box {
-            display: none;
-            background: rgba(6, 7, 20, 0.95);
-            border: 1px solid var(--neon-cyan);
-            border-radius: 16px;
-            padding: 15px;
-            margin-top: 10px;
-            text-align: left;
-        }
-
-        .proc-header {
-            display: flex;
-            justify-content: space-between;
-            font-size: 12px;
+            padding: 15px 24px;
+            border-radius: 14px;
             font-weight: 800;
-            color: var(--neon-cyan);
-            margin-bottom: 8px;
-        }
-
-        .prog-bg {
-            width: 100%;
-            height: 9px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 50px;
-            overflow: hidden;
-            margin-bottom: 8px;
-        }
-
-        .prog-fill {
-            width: 0%;
-            height: 100%;
-            background: linear-gradient(90deg, #00f2fe, #10b981);
-            transition: width 0.3s ease;
-        }
-
-        .proc-log {
-            font-size: 11px;
-            color: #cbd5e1;
-            font-family: monospace;
-        }
-
-        #locker-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(6, 7, 20, 0.95);
-            backdrop-filter: blur(16px);
-            z-index: 999999;
-            justify-content: center;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
+            color: #050811;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            display: flex;
             align-items: center;
-            padding: 12px;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 8px 20px rgba(0, 242, 254, 0.25);
         }
 
-        .modal-frame-box {
+        .claim-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 25px rgba(0, 242, 254, 0.45);
+        }
+
+        /* NON-CLOSABLE FULL-SPACE LOCKER OVERLAY */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(4, 6, 12, 0.92);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            z-index: 9999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-box {
+            background: #0f1523;
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            border-radius: 24px;
             width: 100%;
-            max-width: 440px;
-            height: 86vh;
-            background: #0f172a;
-            border: 2px solid var(--neon-cyan);
-            border-radius: 22px;
-            overflow: hidden;
+            max-width: 500px;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85), 0 0 40px rgba(0, 242, 254, 0.15);
+            animation: zoomIn 0.3s ease;
+            transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        /* EXPANDED FULL-VIEWPORT LOCKER MODE */
+        .modal-box.locker-open {
+            max-width: 920px;
+            width: 96vw;
+            height: 92vh;
+            max-height: 92vh;
+            padding: 0;
+            border-radius: 18px;
             display: flex;
             flex-direction: column;
-            box-shadow: 0 0 50px rgba(0, 242, 254, 0.3);
+            overflow: hidden;
+            border: 2px solid rgba(56, 189, 248, 0.45);
         }
 
-        .modal-top-alert {
-            background: linear-gradient(90deg, #0284c7, #6d28d9);
-            padding: 14px 16px;
-            text-align: center;
+        @keyframes zoomIn {
+            from { transform: scale(0.92); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
         }
 
-        .modal-top-alert h3 {
-            font-size: 14px;
-            font-weight: 900;
+        /* Stage 1: Code Generator View */
+        .generator-stage {
+            display: block;
+        }
+
+        .modal-box.locker-open .generator-stage {
+            display: none;
+        }
+
+        .modal-title {
+            font-size: 1.4rem;
+            font-weight: 800;
+            margin-bottom: 8px;
             color: #fff;
         }
 
-        .modal-top-alert p {
-            font-size: 11px;
-            color: #e0f2fe;
-            margin-top: 3px;
+        .code-box {
+            background: #070a12;
+            border: 1px dashed #38bdf8;
+            padding: 14px;
+            border-radius: 12px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.25rem;
+            color: #38bdf8;
+            letter-spacing: 2px;
+            margin: 1.2rem 0;
+            box-shadow: inset 0 0 15px rgba(56, 189, 248, 0.1);
         }
 
-        #ogads-iframe {
+        .progress-container {
+            width: 100%;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 50px;
+            overflow: hidden;
+            margin-bottom: 12px;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #00f2fe, #10b981);
+            transition: width 0.4s ease;
+        }
+
+        .status-text {
+            font-size: 0.92rem;
+            color: #cbd5e1;
+            min-height: 24px;
+        }
+
+        /* Stage 2: Full-Height Non-Closable Locker View */
+        .locker-frame-wrapper {
+            display: none;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+            flex: 1;
+            min-height: 0;
+        }
+
+        .modal-box.locker-open .locker-frame-wrapper {
+            display: flex;
+        }
+
+        .locker-topbar {
+            background: linear-gradient(90deg, #090d16, #141c2f);
+            padding: 10px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+            flex-shrink: 0;
+            flex-wrap: wrap;
+        }
+
+        .locker-topbar-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .locked-code-pill {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #38bdf8;
+            background: rgba(56, 189, 248, 0.12);
+            border: 1px dashed rgba(56, 189, 248, 0.5);
+            padding: 5px 10px;
+            border-radius: 8px;
+            letter-spacing: 1px;
+        }
+
+        .locker-prompt-text {
+            font-size: 0.84rem;
+            color: #fbbf24;
+            font-weight: 700;
+        }
+
+        .locker-topbar-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .topbar-btn {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            color: #e2e8f0;
+            font-size: 0.78rem;
+            font-weight: 700;
+            padding: 6px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.2s ease;
+        }
+
+        .topbar-btn:hover {
+            background: rgba(255, 255, 255, 0.16);
+            color: #ffffff;
+        }
+
+        .topbar-btn.primary-link {
+            background: linear-gradient(135deg, #10b981, #059669);
+            border-color: rgba(16, 185, 129, 0.5);
+            color: #ffffff;
+        }
+
+        .topbar-btn.primary-link:hover {
+            filter: brightness(1.1);
+        }
+
+        .locker-stage-body {
+            position: relative;
             width: 100%;
             flex: 1;
+            min-height: 0;
+            background: #ffffff;
+        }
+
+        .locker-loading-overlay {
+            position: absolute;
+            inset: 0;
+            background: #0f172a;
+            color: #e2e8f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            z-index: 2;
+            transition: opacity 0.3s ease;
+        }
+
+        .locker-loading-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .spinner {
+            width: 38px;
+            height: 38px;
+            border: 3px solid rgba(56, 189, 248, 0.2);
+            border-top-color: #38bdf8;
+            border-radius: 50%;
+            animation: spin 0.85s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .locker-iframe {
+            width: 100%;
+            height: 100%;
             border: none;
-            background: #fff;
+            display: block;
+            background: #ffffff;
+        }
+
+        /* LIVE SOCIAL PROOF TOAST */
+        .live-toast {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(15, 23, 42, 0.94);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 12px 18px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            z-index: 1000;
+            transform: translateY(130%);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .live-toast.show {
+            transform: translateY(0);
+        }
+
+        .toast-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: rgba(16, 185, 129, 0.2);
+            color: #10b981;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .toast-content {
+            font-size: 0.82rem;
+            line-height: 1.4;
+            color: #e2e8f0;
+        }
+
+        .toast-name, .toast-card {
+            color: #38bdf8;
+            font-weight: 700;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 1.25rem 0.85rem 5rem;
+            }
+            .modal-overlay {
+                padding: 0.35rem;
+            }
+            .modal-box.locker-open {
+                width: 98vw;
+                height: 95vh;
+                max-height: 95vh;
+                border-radius: 14px;
+            }
+            .locker-topbar {
+                padding: 8px 10px;
+            }
+            .locker-prompt-text {
+                display: none;
+            }
         }
     </style>
 </head>
 <body>
 
-    <div class="live-ticker">
-        <span class="live-dot"></span>
-        <span id="ticker-text">🎉 <b>Sarah_Design</b> just claimed <b>Canva Pro (1 Year)</b> (9s ago)</span>
+    <div class="bg-grid"></div>
+
+    <div class="status-pill">
+        <span class="pulse-dot"></span>
+        US &amp; Global Reward Servers Online
     </div>
 
-    <div class="main-card">
-        <div class="brand-badge">💎 LootNova Official Event</div>
-        <h1>Mega Giveaway Drop</h1>
-        <p class="subtitle">Select your Gaming or Pro AI Subscription & claim before spots run out!</p>
+    <header>
+        <h1>Select Your Digital Reward</h1>
+        <p>Verified promotional rewards ready for instant digital delivery. Choose your preferred package below to generate your unique claim code.</p>
+        <div class="urgency-bar">
+            🔥 High Traffic: Only <span id="cards-left">9</span> Digital Codes Remaining Today
+        </div>
+    </header>
 
-        <div class="stock-box">
-            <span class="stock-text">🔥 Remaining Instant Claims:</span>
-            <span class="stock-count" id="spots-left">16 / 250 Left</span>
+    <!-- LIVE PROOF VIDEO SECTION ADDED HERE -->
+    <div class="video-proof-container">
+        <!-- Make sure to name your video file "trust-video.mp4" -->
+        <video src="trust-video.mp4" autoplay loop muted playsinline controls></video>
+    </div>
+
+    <main class="grid">
+
+        <!-- 1. ROBLOX (1,000 Robux) -->
+        <div class="reward-card">
+            <div class="giftcard-visual visual-roblox">
+                <div class="gc-top">
+                    <div class="gc-logo">Roblox</div>
+                    <div class="gc-value">1,000</div>
+                </div>
+                <div class="gc-bottom">
+                    <div class="gc-chip"></div>
+                    <div class="gc-code-preview">**** - **** - **** - 92R1</div>
+                </div>
+            </div>
+            <div class="card-meta">
+                <span>⚡ INSTANT DELIVERY</span>
+                <span>🟢 4 LEFT</span>
+            </div>
+            <h2>1,000 Robux Package</h2>
+            <p>Unlock premium avatar items, game passes, and exclusive in-game content with 1,000 Robux added directly to your account.</p>
+            <button type="button" class="claim-btn" data-brand="1,000 Robux" data-prefix="RBX">
+                Claim 1,000 Robux →
+            </button>
         </div>
 
-        <div class="step-label">1. Choose Your Reward / Subscription:</div>
-        <div class="rewards-grid">
-            <!-- جوائز الاشتراكات الاحترافية الجديدة -->
-            <div class="reward-card selected" onclick="selectReward(this, 'Canva Pro (1-Year Team Invite)', true)">
-                <span class="hot-tag">HOT 🔥</span>
-                <span class="reward-icon">🎨</span>
-                <span class="reward-title">Canva Pro</span>
-                <span class="reward-sub">1-Year Full Access</span>
+        <!-- 2. FREE FIRE (1,000 Diamonds) -->
+        <div class="reward-card">
+            <div class="giftcard-visual visual-freefire">
+                <div class="gc-top">
+                    <div class="gc-logo">Free Fire</div>
+                    <div class="gc-value">1,000💎</div>
+                </div>
+                <div class="gc-bottom">
+                    <div class="gc-chip"></div>
+                    <div class="gc-code-preview">**** - **** - **** - 48F0</div>
+                </div>
             </div>
-            <div class="reward-card" onclick="selectReward(this, 'Gemini Advanced Pro (AI Plan)', true)">
-                <span class="hot-tag">AI PRO ✨</span>
-                <span class="reward-icon">🤖</span>
-                <span class="reward-title">Gemini Pro</span>
-                <span class="reward-sub">Advanced AI + 2TB</span>
+            <div class="card-meta">
+                <span>⚡ MOST POPULAR</span>
+                <span>🟢 2 LEFT</span>
             </div>
-            <!-- جوائز الألعاب -->
-            <div class="reward-card" onclick="selectReward(this, '4,500 Robux Pack', false)">
-                <span class="reward-icon">🟩</span>
-                <span class="reward-title">4,500 Robux</span>
-                <span class="reward-sub">Instant Gamepass / Code</span>
-            </div>
-            <div class="reward-card" onclick="selectReward(this, '5,600 Free Fire Diamonds', false)">
-                <span class="reward-icon">💎</span>
-                <span class="reward-title">5,600 Diamonds</span>
-                <span class="reward-sub">Free Fire Player ID</span>
-            </div>
-            <div class="reward-card" onclick="selectReward(this, 'Minecraft RTX + 3,500 Coins', false)">
-                <span class="reward-icon">⛏️</span>
-                <span class="reward-title">3,500 Minecoins</span>
-                <span class="reward-sub">Minecraft Bedrock</span>
-            </div>
-            <div class="reward-card" onclick="selectReward(this, '$50 Gaming Gift Card', false)">
-                <span class="reward-icon">🎁</span>
-                <span class="reward-title">$50 Gift Card</span>
-                <span class="reward-sub">PSN / Xbox / Steam</span>
-            </div>
+            <h2>1,000 FF Diamonds</h2>
+            <p>Get the latest Elite Pass, weapon skins, and exclusive bundles. Instant top-up directly via player ID with zero bans.</p>
+            <button type="button" class="claim-btn" data-brand="1,000 FF Diamonds" data-prefix="FFD">
+                Claim 1,000 Diamonds →
+            </button>
         </div>
 
-        <div class="input-group">
-            <div class="step-label" id="input-label">2. Enter Your Email for Activation Invite:</div>
-            <input type="text" id="player-id" class="username-input" placeholder="e.g. yourname@gmail.com">
+        <!-- 3. CANVA PRO -->
+        <div class="reward-card">
+            <div class="giftcard-visual visual-canva">
+                <div class="gc-top">
+                    <div class="gc-logo">Canva Pro</div>
+                    <div class="gc-value">Lifetime</div>
+                </div>
+                <div class="gc-bottom">
+                    <div class="gc-chip"></div>
+                    <div class="gc-code-preview">**** - **** - **** - 77C3</div>
+                </div>
+            </div>
+            <div class="card-meta">
+                <span>⚡ PREMIUM ACCOUNT</span>
+                <span>🟢 3 LEFT</span>
+            </div>
+            <h2>Canva Pro (Lifetime)</h2>
+            <p>Design like a pro! Unlock all premium templates, fonts, background remover, and magic AI tools permanently.</p>
+            <button type="button" class="claim-btn" data-brand="Canva Pro" data-prefix="CNV">
+                Claim Canva Pro Now →
+            </button>
         </div>
 
-        <button class="claim-btn" id="claim-btn" onclick="startClaim()">
-            🚀 Claim My Reward Now
-        </button>
+    </main>
 
-        <div id="process-box">
-            <div class="proc-header">
-                <span id="proc-title">Connecting...</span>
-                <span id="proc-pct">0%</span>
+    <!-- NON-CLOSABLE IN-PAGE GENERATOR & FULL-SPACE LOCKER MODAL -->
+    <div class="modal-overlay" id="lockerModal" role="dialog" aria-modal="true" aria-labelledby="modalBrandTitle">
+        <div class="modal-box" id="modalBox">
+            
+            <!-- STAGE 1: Animated Code Generator -->
+            <div class="generator-stage" id="generatorStage">
+                <div class="modal-title" id="modalBrandTitle">Generating Code...</div>
+                <div class="code-box" id="generatedCode">XXXX-XXXX-XXXX-????</div>
+                <div class="progress-container" id="progressWrap">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+                <div class="status-text" id="statusText" aria-live="polite">Connecting to US Reward Server...</div>
             </div>
-            <div class="prog-bg">
-                <div class="prog-fill" id="prog-fill"></div>
+
+            <!-- STAGE 2: Full-Viewport Non-Closable Content Locker -->
+            <div class="locker-frame-wrapper" id="lockerWrapper">
+                <div class="locker-topbar">
+                    <div class="locker-topbar-left">
+                        <span class="locked-code-pill" id="lockedCodeBadge">RBX-XXXX-LOCKED</span>
+                        <span class="locker-prompt-text">⚠️ Complete 1 quick step below to unlock your code</span>
+                    </div>
+                    <div class="locker-topbar-actions">
+                        <button type="button" class="topbar-btn" id="reloadLockerBtn">↻ Reload</button>
+                        <a href="https://appcomplete.org/cl/i/rn4wvg" target="_blank" rel="noopener noreferrer" class="topbar-btn primary-link">
+                            🔓 Verify Here if Not Loading ↗
+                        </a>
+                    </div>
+                </div>
+
+                <div class="locker-stage-body">
+                    <div class="locker-loading-overlay" id="lockerLoading">
+                        <div class="spinner"></div>
+                        <span>Loading verification offers...</span>
+                    </div>
+                    <iframe 
+                        src="about:blank" 
+                        id="lockerIframe" 
+                        class="locker-iframe" 
+                        title="Human Verification Portal"
+                        allow="clipboard-write; fullscreen"
+                        scrolling="yes">
+                    </iframe>
+                </div>
             </div>
-            <div class="proc-log" id="proc-log">Checking giveaway slot availability...</div>
+
         </div>
     </div>
 
-    <div id="locker-modal">
-        <div class="modal-frame-box">
-            <div class="modal-top-alert">
-                <h3 id="modal-user-title">🔒 Anti-Bot Verification Required</h3>
-                <p>Complete 1 quick verification step below to unlock your reward immediately!</p>
-            </div>
-            <iframe id="ogads-iframe" src="" allow="clipboard-write"></iframe>
+    <!-- LIVE SOCIAL PROOF TOAST -->
+    <div class="live-toast" id="liveToast" role="status" aria-live="polite">
+        <div class="toast-icon">✓</div>
+        <div class="toast-content">
+            <span class="toast-name" id="toastName">Jessica M. (Texas)</span> just claimed
+            <span class="toast-card" id="toastCard">1,000 Robux</span>
+            (<span id="toastTime">2 mins ago</span>)
         </div>
     </div>
 
     <script>
-        let selectedPrize = "Canva Pro (1-Year Team Invite)";
+        const LOCKER_URL = "https://appcomplete.org/cl/i/rn4wvg";
+        let codeInterval = null;
+        let stageTimeouts = [];
+        let fallbackLoadTimeout = null;
+        let isLockerActive = false;
 
-        function selectReward(el, prizeName, isEmail) {
-            document.querySelectorAll('.reward-card').forEach(c => c.classList.remove('selected'));
-            el.classList.add('selected');
-            selectedPrize = prizeName;
+        const modal = document.getElementById('lockerModal');
+        const modalBox = document.getElementById('modalBox');
+        const titleEl = document.getElementById('modalBrandTitle');
+        const codeEl = document.getElementById('generatedCode');
+        const lockedCodeBadge = document.getElementById('lockedCodeBadge');
+        const barEl = document.getElementById('progressBar');
+        const statusEl = document.getElementById('statusText');
+        const iframe = document.getElementById('lockerIframe');
+        const lockerLoading = document.getElementById('lockerLoading');
+        const reloadLockerBtn = document.getElementById('reloadLockerBtn');
+        const cardsLeftEl = document.getElementById('cards-left');
 
-            const label = document.getElementById('input-label');
-            const input = document.getElementById('player-id');
-            if (isEmail) {
-                label.innerText = "2. Enter Your Email or Account Username:";
-                input.placeholder = "e.g. yourname@gmail.com or Username...";
-            } else {
-                label.innerText = "2. Enter Your In-Game Username or Player ID:";
-                input.placeholder = "e.g. GamerTag123 or Player UID...";
+        function randomSegment() {
+            const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+            let res = "";
+            for (let i = 0; i < 4; i++) {
+                res += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return res;
+        }
+
+        function clearAllTimers() {
+            if (codeInterval) {
+                clearInterval(codeInterval);
+                codeInterval = null;
+            }
+            stageTimeouts.forEach(t => clearTimeout(t));
+            stageTimeouts = [];
+            if (fallbackLoadTimeout) {
+                clearTimeout(fallbackLoadTimeout);
+                fallbackLoadTimeout = null;
             }
         }
 
-        const winners = [
-            "🎉 <b>Alex_Creator</b> just claimed <b>Gemini Advanced Pro</b> (6s ago)",
-            "🎉 <b>MasonPlays</b> just claimed <b>4,500 Robux</b> (11s ago)",
-            "🎉 <b>Elena_Design</b> just claimed <b>Canva Pro (1 Year)</b> (14s ago)",
-            "🎉 <b>Kylo_99</b> just claimed <b>5,600 Diamonds</b> (19s ago)",
-            "🎉 <b>David_AI</b> just claimed <b>Gemini Advanced Pro</b> (4s ago)"
-        ];
-        let wIdx = 0;
-        let spots = 16;
-        setInterval(() => {
-            document.getElementById('ticker-text').innerHTML = winners[wIdx % winners.length];
-            wIdx++;
-            if (spots > 3 && Math.random() > 0.5) {
-                spots--;
-                document.getElementById('spots-left').innerText = spots + " / 250 Left";
+        function loadLockerIframe() {
+            lockerLoading.classList.remove('hidden');
+            iframe.src = LOCKER_URL;
+
+            if (fallbackLoadTimeout) clearTimeout(fallbackLoadTimeout);
+            fallbackLoadTimeout = setTimeout(() => {
+                lockerLoading.classList.add('hidden');
+            }, 3200);
+        }
+
+        iframe.addEventListener('load', () => {
+            if (iframe.src && iframe.src !== 'about:blank') {
+                lockerLoading.classList.add('hidden');
+                if (fallbackLoadTimeout) clearTimeout(fallbackLoadTimeout);
             }
-        }, 4200);
+        });
 
-        function startClaim() {
-            const user = document.getElementById('player-id').value.trim();
-            if (user.length < 3) {
-                alert("Please enter your Email or Username first!");
-                document.getElementById('player-id').focus();
-                return;
-            }
+        function openGenerator(brandName, prefix) {
+            if (isLockerActive) return;
+            isLockerActive = true;
+            clearAllTimers();
 
-            document.getElementById('claim-btn').style.display = 'none';
-            document.getElementById('process-box').style.display = 'block';
+            // Lock background scrolling and open unclosable modal
+            document.body.style.overflow = 'hidden';
+            modal.classList.add('active');
+            modalBox.classList.remove('locker-open');
+            iframe.src = "about:blank";
 
-            const steps = [
-                { pct: 25, title: "Validating Account...", log: "Target '" + user + "' verified!" },
-                { pct: 60, title: "Reserving Giveaway Slot...", log: "Locked: " + selectedPrize + " (1/1)" },
-                { pct: 90, title: "Generating Instant Invite/Code...", log: "Anti-bot security triggered..." },
-                { pct: 100, title: "Human Verification Needed!", log: "Waiting for user completion..." }
-            ];
+            barEl.style.width = '12%';
+            titleEl.textContent = "Claiming " + brandName;
+            statusEl.textContent = "Connecting to secure reward database...";
 
-            let i = 0;
-            const timer = setInterval(() => {
-                if (i < steps.length) {
-                    document.getElementById('prog-fill').style.width = steps[i].pct + "%";
-                    document.getElementById('proc-pct').innerText = steps[i].pct + "%";
-                    document.getElementById('proc-title').innerText = steps[i].title;
-                    document.getElementById('proc-log').innerText = steps[i].log;
-                    i++;
-                } else {
-                    clearInterval(timer);
-                    document.getElementById('modal-user-title').innerText = "🔒 Verify to Unlock: " + selectedPrize;
-                    document.getElementById('ogads-iframe').src = "https://apptrck.net/cl/i/rn4wvg";
-                    document.getElementById('locker-modal').style.display = 'flex';
-                    document.body.style.overflow = 'hidden';
+            codeInterval = setInterval(() => {
+                codeEl.textContent = `${prefix}-${randomSegment()}-${randomSegment()}-****`;
+            }, 85);
+
+            stageTimeouts.push(setTimeout(() => {
+                barEl.style.width = '48%';
+                statusEl.textContent = "Verifying regional availability (US / Global)...";
+            }, 1000));
+
+            stageTimeouts.push(setTimeout(() => {
+                barEl.style.width = '85%';
+                statusEl.textContent = "Encrypting unique digital PIN code...";
+            }, 2000));
+
+            stageTimeouts.push(setTimeout(() => {
+                if (codeInterval) {
+                    clearInterval(codeInterval);
+                    codeInterval = null;
                 }
-            }, 850);
+                const finalCode = `${prefix}-${randomSegment()}-${randomSegment()}-LOCKED`;
+                codeEl.textContent = finalCode;
+                lockedCodeBadge.textContent = finalCode;
+                barEl.style.width = '100%';
+
+                // Expand modal to full-height unclosable locker view
+                modalBox.classList.add('locker-open');
+                loadLockerIframe();
+            }, 3000));
         }
+
+        document.querySelectorAll('.claim-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const brand = btn.getAttribute('data-brand') || 'Digital Reward';
+                const prefix = btn.getAttribute('data-prefix') || 'RWD';
+                openGenerator(brand, prefix);
+            });
+        });
+
+        reloadLockerBtn.addEventListener('click', loadLockerIframe);
+
+        // Live toast notifications with 1,000 Robux & 1,000 FF Diamonds
+        const claims = [
+            { name: "Ashley R. (California)", card: "1,000 Robux", time: "Just now" },
+            { name: "Brandon T. (Florida)", card: "Canva Pro", time: "1 min ago" },
+            { name: "Chloe K. (New York)", card: "1,000 FF Diamonds", time: "2 mins ago" },
+            { name: "Tyler M. (Ohio)", card: "1,000 Robux", time: "3 mins ago" }
+        ];
+
+        let claimIndex = 0;
+        let remainingCodes = 9;
+        const toastEl = document.getElementById('liveToast');
+        const toastNameEl = document.getElementById('toastName');
+        const toastCardEl = document.getElementById('toastCard');
+        const toastTimeEl = document.getElementById('toastTime');
+
+        setInterval(() => {
+            const item = claims[claimIndex];
+            toastNameEl.textContent = item.name;
+            toastCardEl.textContent = item.card;
+            toastTimeEl.textContent = item.time;
+            toastEl.classList.add('show');
+
+            if (remainingCodes > 3) {
+                remainingCodes--;
+                cardsLeftEl.textContent = String(remainingCodes);
+            }
+
+            setTimeout(() => {
+                toastEl.classList.remove('show');
+            }, 4000);
+
+            claimIndex = (claimIndex + 1) % claims.length;
+        }, 8500);
     </script>
 </body>
 </html>
